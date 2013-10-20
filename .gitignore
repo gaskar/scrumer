@@ -3,4 +3,4 @@ node_modules
 .sass-cache
 public/bower_components
 .idea
-/dist
+dist
