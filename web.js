@@ -5,18 +5,39 @@ var gzippo = require('gzippo');
 var express = require('express');
 var app = express();
 var http = require('http');
+var fs = require('fs');
 var server = http.createServer(app);
+var dbConf = require('./db');
+var mongoose = require('mongoose');
+var io = require('socket.io').listen(server);
+
+
+mongoose.connect('mongodb://' + dbConf.host + "/" + dbConf.dbName);
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function callback () {
+
+});
 
 
 app.use(express.logger('dev'));
 app.use(gzippo.staticGzip("" + __dirname + "/dist"));
-server.listen(process.env.PORT || 5000);
 
-var io = require('socket.io').listen(server);
+var models_path = __dirname + '/app/models'
+fs.readdirSync(models_path).forEach(function (file) {
+    require(models_path+'/'+file)
+})
+var cards = require('./app/controllers/cards');
+
+require('./config/routes')(app);
+
+
+server.listen(process.env.PORT || 3000);
+
 
 io.sockets.on('connection', function (socket) {
-    socket.emit('news', { hello: 'world' });
-    socket.on('my other event', function (data) {
-        console.log(data);
+    socket.on('create', function (data) {
+        cards.create(data);
+        io.sockets.emit('newCard', {});
     });
 });
