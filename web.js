@@ -12,7 +12,7 @@ var mongoose = require('mongoose');
 var io = require('socket.io').listen(server);
 
 
-mongoose.connect('mongodb://' + dbConf.host + "/" + dbConf.dbName);
+mongoose.connect(process.env.MONGOLAB_URI);
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function callback () {
