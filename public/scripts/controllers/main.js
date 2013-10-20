@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('scrummerApp')
+angular.module('scrumerApp')
     .controller('LoginCtrl', function ($scope, $cookies, $location) {
         $scope.username = '';
 

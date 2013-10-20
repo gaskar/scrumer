@@ -1,8 +1,8 @@
 'use strict';
 
-var socket = io.connect('http://scrumertest.herokuapp.com/');
+var socket = io.connect('localhost');
 
-var app = angular.module('scrummerApp', [
+var app = angular.module('scrumerApp', [
         'ngCookies',
         'ngResource',
         'ngSanitize',
@@ -39,6 +39,6 @@ app.directive('card', function() {
         scope: {
             ngModel: '='
         },
-        templateUrl: 'views/directives/card-template.html'
+        templateUrl: 'views/card-template.html'
     }
 });
