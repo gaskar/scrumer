@@ -1,6 +1,6 @@
 'use strict';
 
-var socket = io.connect('localhost');
+var socket = io.connect('http://scrumertest.herokuapp.com/');
 
 var app = angular.module('scrumerApp', [
         'ngCookies',

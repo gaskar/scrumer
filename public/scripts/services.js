@@ -5,7 +5,7 @@ var cardServices = angular.module('cardServices', ['ngResource']);
 
 cardServices.factory('Card', ['$resource',
     function($resource){
-        return $resource('http://localhost:3000/cards/getCards', {}, {
+        return $resource('cards/getCards', {}, {
             query: {method:'GET', isArray:true}
         });
     }]);
